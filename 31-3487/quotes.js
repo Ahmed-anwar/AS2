@@ -23,24 +23,27 @@ exports.getQuoteFromJSON =  function (index){
 }
 
 exports.seed = function (cb){
+	/** You don't need this because before coming here u grantue that the DB is connected
 	if(DB === null) db.connect(function(db){
 		DB = db;
 		console.log(db);
 	})
-		
+	**/
 	if(seeded === false){
-	DB.insertAll(quotesJSON, function(err, res){
-		if(err){
-			cb(err, seeded)
-		}
-		else{
-			seeded = true;
-			cb(null,seeded)
-		}
-	});
+		  // calling db.db() to access the Database
+			// It's not called insertAll google it :D
+			db.db().insertAll(quotesJSON, function(err, res){
+				if(err){
+					cb(err, seeded)
+				}
+				else{
+					seeded = true;
+					cb(null,seeded)
+				}
+		 });
 
-	
-}
+
+	}
 }
 
 var getQuotesFromDB = module.exports.getQuotesFromDB = function(cb){
@@ -62,9 +65,5 @@ exports.getQuoteFromDB = function(cb, index){
 		}
 		else
 			cb(err,null);
-	}); 
+	});
 }
-
-
-
-

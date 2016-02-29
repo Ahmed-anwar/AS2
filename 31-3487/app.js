@@ -6,7 +6,7 @@ var index = __dirname +'/public/index.html';
 app.get('/', function (req, res) {
 		res.status = 200;
 		res.sendFile(__dirname + '/public/index.html');
-		
+
 });
 
 
@@ -18,13 +18,13 @@ app.get('/api/quote',function(req, res){
 
 
 
-db.connect(function(){
-	
+db.connect(function(res){
+	quotes.seed(function(err, seeded){
+		if(seeded) console.log("seeded")
+	});
 });
 
-quotes.seed(function(err, seeded){
-	if(seeded) console.log("seeded")
-});
+
 
 
 
@@ -38,5 +38,3 @@ quotes.seed(function(err, seeded){
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
-
-
