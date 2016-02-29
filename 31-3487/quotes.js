@@ -32,7 +32,7 @@ exports.seed = function (cb){
 	if(seeded === false){
 		  // calling db.db() to access the Database
 			// It's not called insertAll google it :D
-			db.db().insertAll(quotesJSON, function(err, res){
+			db.db().collection("quotes").insertMany(quotesJSON, function(err, res){
 				if(err){
 					cb(err, seeded)
 				}
@@ -47,7 +47,7 @@ exports.seed = function (cb){
 }
 
 var getQuotesFromDB = module.exports.getQuotesFromDB = function(cb){
-	var quotes = DB.find(function(err,quotes){
+	var quotes = DB.collection("quotes").find(function(err,quotes){
 		if(err){
 			cb(err,null);
 		}

@@ -1,32 +1,42 @@
 var quotes = require('../../db.js')
 
-$(document).ready(function(){
+// $(document).ready(function(){
 
-  // Animate "Click something."
+//   // Animate "Click something."
 
-  $(document).on("click", function() {
+//   $(document).on("click", function() {
 
   	
-    $(document).css({"background-color": quotes.getElementByIndexElseRandom(colours)});
-      // Update quote
-      var randomQuote = quotes.getQuoteFromJSON();
-      $("h1").text('“' + randomQuote.text + '”');
-      $("h2").text(randomQuote.author);
+//     $(document).css({"background-color": quotes.getElementByIndexElseRandom(colours)});
+//       // Update quote
+//       var randomQuote = quotes.getQuoteFromJSON();
+//       $("h1").text('“' + randomQuote.text + '”');
+//       $("h2").text(randomQuote.author);
 
-      // Animate author name
-      $('h2').typeIt();
+//       // Animate author name
+//       $('h2').typeIt();
 
+//     });
+
+//   	$.getJSON( "api/quote", function( data ) {
+// 		var text = data.text;
+// 		var author = data.author;
+// 		$('#quote').html(text);
+// 		$('#author').html(author);
+// 	});
+
+// });
+
+
+$('body').on('click', function (event) {
+    $.ajax({
+        url: 'api/quote',
+        success: function (quote) {
+            $('#quote').html(quote.text);
+            $('#author').html(quote.author);
+        }
     });
-
-  	$.getJSON( "api/quote", function( data ) {
-		var text = data.text;
-		var author = data.author;
-		$('#quote').html(text);
-		$('#author').html(author);
-	});
-
-});
-
+})
 
 var quotesArray = require('../../../quotes.json')
 // Colours array
