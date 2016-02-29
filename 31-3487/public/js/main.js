@@ -26,9 +26,12 @@
 // 	});
 
 // });
+$(document).ready(function(){
 
 
 $('body').on('click', function (event) {
+  var index = Math.floor(Math.random()*colours.length)
+  $('body').css({"background-color" : colours[index] })
     $.ajax({
         url: 'api/quote',
         success: function (quote) {
@@ -36,6 +39,9 @@ $('body').on('click', function (event) {
             $('#author').html(quote.author);
         }
     });
+})
+
+
 })
 
 // var quotesArray = require('../../../quotes.json')

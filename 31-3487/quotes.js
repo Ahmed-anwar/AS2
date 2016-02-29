@@ -3,7 +3,7 @@ var app = require('./app.js');
 var db = require('./db.js');
 var DB = db.db();
 var seeded = false;
-exports.getElementByIndexElseRandom = function (array, index){
+var getElementByIndexElseRandom = module.exports.getElementByIndexElseRandom = function (array, index){
 	if(typeof index === 'undefined'){
 		index =Math.random()*(array.length)
 		index= Math.floor(index)
@@ -47,7 +47,7 @@ exports.seed = function (cb){
 }
 
 var getQuotesFromDB = module.exports.getQuotesFromDB = function(cb){
-	var quotes = DB.collection("quotes").find(function(err,quotes){
+	var quotes = db.db().collection("quotes").find().toArray(function(err,quotes){
 		if(err){
 			cb(err,null);
 		}
