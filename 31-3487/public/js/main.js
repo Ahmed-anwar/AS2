@@ -35,8 +35,8 @@ $('body').on('click', function (event) {
     $.ajax({
         url: 'api/quote',
         success: function (quote) {
-            $('#quote').html(quote.text);
-            $('#author').html(quote.author);
+            $('#quote').html('"'+quote.text+'"');
+            $('#author').html('-'+quote.author);
         }
     });
 })
@@ -46,4 +46,4 @@ $('body').on('click', function (event) {
 
 // var quotesArray = require('../../../quotes.json')
 // Colours array
-var colours = ["#789dd0","#a2b3cc","#9da1b6","#7f7784","#a69190","#bf7fbf","#a3d468","#9aacb0","##294d67","#88d2f6","#5df977","#b4fb38","#ffaaaa"];
+var colours = ["#0066cc","#e6e600","#cc00ff","#009933","#0099ff","#339966","#004d4d","#4b2c17","#fabf00","#ff8000"];
