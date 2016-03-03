@@ -2,7 +2,6 @@ var quotesJSON = require('../quotes.json');
 var app = require('./app.js');
 var db = require('./db.js');
 var DB = db.db();
-var seeded = false;
 var getElementByIndexElseRandom = module.exports.getElementByIndexElseRandom = function (array, index){
 	if(typeof index === 'undefined'){
 		index =Math.random()*(array.length)
@@ -23,31 +22,30 @@ exports.getQuoteFromJSON =  function (index){
 }
 
 exports.seed = function (cb){
-	/** You don't need this because before coming here u grantue that the DB is connected
-	if(DB === null) db.connect(function(db){
-		DB = db;
-		console.log(db);
-	})
-	**/
-	if(seeded === false){
-		  // calling db.db() to access the Database
-			// It's not called insertAll google it :D
+	getQuotesFromDB(function(err, quotes){
+		if(quotes.length === 102)
+			cb(null, false);
+		else{
 			db.db().collection("quotes").insertMany(quotesJSON, function(err, res){
-				if(err){
-					cb(err, seeded)
-				}
-				else{
-					seeded = true;
-					cb(null,seeded)
-				}
-		 });
-
-
+					if(err){
+					cb(err, false)
+					}
+					else{
+					cb(null,true)
+					}
+				 });
 	}
-}
+	})
+
+				
+		}
+
+
+	
+
 
 var getQuotesFromDB = module.exports.getQuotesFromDB = function(cb){
-	var quotes = db.db().collection("quotes").find().toArray(function(err,quotes){
+		db.db().collection("quotes").find().toArray(function(err,quotes){
 		if(err){
 			cb(err,null);
 		}
@@ -57,9 +55,9 @@ var getQuotesFromDB = module.exports.getQuotesFromDB = function(cb){
 	});
 
 }
-
-exports.getQuoteFromDB = function(cb, index){
+exports.getQuoteFromDB = function(index, cb){
 	getQuotesFromDB(function(err,quotes){
+		var flag = false;
 		if(quotes !== null){
 			cb(null, getElementByIndexElseRandom(quotes,index));
 		}

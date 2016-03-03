@@ -41,24 +41,27 @@ app.get('*', function(req, res){
 });
 
 db.connect(function(res){
-	if((quotes.getQuotesFromDB.length !== 102)){
-		console.log("Database need to be seeded")
-		db.clearDB(function(done){
+	quotes.getQuotesFromDB(function(err, quotes){
+		if(quotes.length !== 102){
+		console.log("Database needs to be seeded")
+		db.clearDB(function(err, done){
 			if(done) {
 				console.log("Database cleared");
 				quotes.seed(function(err, seeded){
 				if(seeded) console.log("seeded")
-		});
+				});
 			}
 		});
-	}
+		}
 	else{
 		console.log("Database already seeded")
 	}
+		
+	});
 	
 });
 
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('App listening on port 3000!');
 });

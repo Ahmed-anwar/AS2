@@ -11,11 +11,11 @@ var connect =module.exports.connect = function(cb) {
     // You do this one
     mongo.connect(dbURL, function(err, res){
 		   if(err){
-		   	console.log(err);
+		   	cb(err,null);
 		   }
 		   else{
 		   	DB = res;
-		    cb(res);
+		    cb(null,res);
 		    }    	
     });
 
@@ -31,6 +31,7 @@ var connect =module.exports.connect = function(cb) {
 exports.db = function() {
     if (DB === null)  connect(function(db){
     	console.log("connected to the database");
+        return DB = db;
     }); //throw Error('DB Object has not yet been initialized');
     return DB;
 };
@@ -44,6 +45,6 @@ exports.clearDB = function(done) {
         collections.forEach(function (c) {
             DB.collection(c.name).removeMany();   
         });
-        done(true);
+        done(null,true);
     }).catch(done);
 };
