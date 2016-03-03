@@ -12,6 +12,17 @@ app.get('/', function (req, res) {
 
 });
 
+app.get('/index', function (req, res) {
+		res.status = 200;
+		res.sendFile(__dirname + '/public/index.html');
+
+});
+
+app.get('/index.html', function (req, res) {
+		res.status = 200;
+		res.sendFile(__dirname + '/public/index.html');
+
+});
 
 app.get('/api/quote',function(req, res){
 	quotes.getQuoteFromDB(function(err, quote){
@@ -19,12 +30,29 @@ app.get('/api/quote',function(req, res){
 	});
 });
 
+app.get('/api/quotes',function(req, res){
+	quotes.getQuotesFromDB(function(err, quote){
+		res.json(quote);
+	});
+});
 
 
 db.connect(function(res){
-	quotes.seed(function(err, seeded){
-		if(seeded) console.log("seeded")
-	});
+	if((quotes.getQuotesFromDB.length === 0)){
+		console.log("Database need to be seeded")
+		db.clearDB(function(done){
+			if(done) {
+				console.log("Database cleared");
+				quotes.seed(function(err, seeded){
+				if(seeded) console.log("seeded")
+		});
+			}
+		});
+	}
+	else{
+		console.log("Database already seeded")
+	}
+	
 });
 
 

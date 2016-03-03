@@ -44,6 +44,6 @@ exports.clearDB = function(done) {
         collections.forEach(function (c) {
             DB.collection(c.name).removeMany();   
         });
-        done();
+        done(true);
     }).catch(done);
 };

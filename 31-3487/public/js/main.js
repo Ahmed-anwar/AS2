@@ -29,16 +29,18 @@
 $(document).ready(function(){
 
 
-$('body').on('click', function (event) {
+$(document).on('click', function (event) {
   var index = Math.floor(Math.random()*colours.length)
-  $('body').css({"background-color" : colours[index] })
-    $.ajax({
+ 
+ 
+  $.ajax({
         url: 'api/quote',
         success: function (quote) {
             $('#quote').html('"'+quote.text+'"');
             $('#author').html('-'+quote.author);
         }
     });
+   $('body').css({"background-color" : colours[index] })
 })
 
 

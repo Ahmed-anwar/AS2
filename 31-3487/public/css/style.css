@@ -12,13 +12,13 @@ body{
 }
 #quote{
 	text-align: center;
-	font : helvetica;
+	font : serif;
 	font-size: 5ex;
 	color: white;
 }
 
 #author{
-	font: helvetica;
+	font: serif;
 	text-align: right;
 	font-style: italic;
 	/*position: absolute;*/
