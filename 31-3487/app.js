@@ -36,9 +36,12 @@ app.get('/api/quotes',function(req, res){
 	});
 });
 
+app.get('*', function(req, res){
+  res.sendFile(__dirname + '/public/404.html');
+});
 
 db.connect(function(res){
-	if((quotes.getQuotesFromDB.length === 0)){
+	if((quotes.getQuotesFromDB.length !== 102)){
 		console.log("Database need to be seeded")
 		db.clearDB(function(done){
 			if(done) {
